@@ -11,14 +11,17 @@ class MyGame extends FlameGame {
   void onLoad() async {
     super.onLoad();
 
-    ParallaxComponent parallaxComponent = await loadParallaxComponent(
-      [
-        ParallaxImageData('layer01_ground.png'),
-        ParallaxImageData('layer02_cake.png'),
-      ],
-      baseVelocity: Vector2(10, 0),
-      // velocityMultiplierDelta: Vector2(1.6, 1.0)
-    );
+    ParallaxComponent parallaxComponent = await loadParallaxComponent([
+      // ParallaxImageData('layer06_sky.png', repeat: ImageRepeat.repeatY),
+      ParallaxImageData('layer06_sky.png'),
+      ParallaxImageData('layer05_rocks.png'),
+      ParallaxImageData('layer04_clouds.png'),
+      ParallaxImageData('layer03_trees.png'),
+      ParallaxImageData('layer02_cake.png'),
+      ParallaxImageData('layer01_ground.png'),
+    ],
+        baseVelocity: Vector2(10, 0),
+        velocityMultiplierDelta: Vector2(1.1, 1.1));
 
     add(parallaxComponent);
   }
