@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/parallax.dart';
+import 'package:parallax06/components/player_component.dart';
 
 class MyGame extends FlameGame {
-  // late TileMapComponent background;
-
   @override
   void onLoad() async {
     super.onLoad();
+    add(await bgParallax());
+    add(PlayerComponent(game: this));
+  }
 
+  Future<ParallaxComponent> bgParallax() async {
     ParallaxComponent parallaxComponent = await loadParallaxComponent([
       // ParallaxImageData('layer06_sky.png', repeat: ImageRepeat.repeatY),
       ParallaxImageData('layer06_sky.png'),
@@ -23,7 +26,7 @@ class MyGame extends FlameGame {
         baseVelocity: Vector2(10, 0),
         velocityMultiplierDelta: Vector2(1.1, 1.1));
 
-    add(parallaxComponent);
+    return parallaxComponent;
   }
 }
 
