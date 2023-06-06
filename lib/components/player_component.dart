@@ -61,11 +61,60 @@ class PlayerComponent extends Character {
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (keysPressed.isEmpty) {
+      movementType = MovementType.idle;
+      // isMoving = false;
+    }
+    // else {
+    //   isMoving = true;
+    // }
+
+    //**** RIGHT
+    if (keysPressed.contains(LogicalKeyboardKey.arrowRight) ||
+        keysPressed.contains(LogicalKeyboardKey.keyD)) {
+      movementType = MovementType.right;
+    } else if (keysPressed.contains(LogicalKeyboardKey.arrowLeft) || //**** LEFT
+        keysPressed.contains(LogicalKeyboardKey.keyA)) {
+      movementType = MovementType.left;
+    } else if (keysPressed.contains(LogicalKeyboardKey.arrowUp) || //**** TOP
+        keysPressed.contains(LogicalKeyboardKey.keyW)) {
+      movementType = MovementType.up;
+    } else if (keysPressed
+            .contains(LogicalKeyboardKey.arrowDown) || //**** BOTTOM
+        keysPressed.contains(LogicalKeyboardKey.keyS)) {
+      movementType = MovementType.down;
+    }
+
     return true;
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
+  void movePlayer(double delta) {
+    // if (movementType == playerCollisionDirection) {
+    //   return;
+    // }
+
+    // if (playerCollisionDirection.contains(movementType)) {
+    //   return;
+    // }
+
+    switch (movementType) {
+      case MovementType.right:
+      case MovementType.left:
+        if (position.x < 500 - size.x) {
+          position.add(Vector2(
+              delta * speed * (movementType == MovementType.left ? -1 : 1), 0));
+        }
+
+        break;
+      case MovementType.up:
+      case MovementType.down:
+        if (position.y > 0) {
+          position.add(Vector2(
+              0, delta * speed * (movementType == MovementType.up ? -1 : 1)));
+        }
+        break;
+      case MovementType.idle:
+        break;
+    }
   }
 }
