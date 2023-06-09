@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 // import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame/input.dart';
 // import 'package:flame/parallax.dart';
 import 'package:parallax06/background/candy_background.dart';
 import 'package:parallax06/components/player_component.dart';
 
-class MyGame extends FlameGame {
+class MyGame extends FlameGame with HasKeyboardHandlerComponents {
   @override
   void onLoad() async {
     super.onLoad();

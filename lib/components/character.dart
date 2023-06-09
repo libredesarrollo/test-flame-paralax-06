@@ -1,34 +1,19 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
-enum MovementType { idle, right, left, up, down }
+enum MovementType { idle, right, left, up, down, rotate }
 
 class Character extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks {
-  int animationIndex = 0;
-
   MovementType movementType = MovementType.idle;
 
-  double gravity = 15;
   Vector2 velocity = Vector2(0, 0);
 
-  double speed = 80;
+  double speed = 160;
 
-  final double spriteSheetWidth = 278.5, spriteSheetHeight = 131.5;
-  final double jumpForceUp = 600, jumpForceSide = 100, jumpForceXY = 20;
+  final double spriteSheetWidth = 269, spriteSheetHeight = 118;
 
-  bool inGround = false,
-      jumpUp = false,
-      right = true,
-      collisionXRight = false,
-      collisionXLeft = false;
+  late SpriteAnimation chewAnimation, idleAnimation;
 
-  late SpriteAnimation deadAnimation,
-      idleAnimation,
-      jumpAnimation,
-      runAnimation,
-      walkAnimation,
-      walkSlowAnimation;
-
-  late RectangleHitbox body, foot;
+  late RectangleHitbox body;
 }

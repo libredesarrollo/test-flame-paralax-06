@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/services.dart';
 
 import 'package:flame/collisions.dart';
@@ -12,22 +14,13 @@ import 'package:parallax06/main.dart';
 class PlayerComponent extends Character {
   MyGame game;
 
-  // bool blockPlayer = false;
-  // double blockPlayerTime = 2.0;
-  // double blockPlayerElapseTime = 0;
-
-  // bool inviciblePlayer = false;
-  // double inviciblePlayerTime = 8.0;
-  // double inviciblePlayerElapseTime = 0;
-
   PlayerComponent({required this.game}) : super() {
     anchor = Anchor.center;
     debugMode = true;
     position = Vector2(spriteSheetWidth, spriteSheetHeight);
     size = Vector2(spriteSheetWidth, spriteSheetHeight);
+    // scale = Vector2.all(1.5);
   }
-
-  int count = 0;
 
   @override
   Future<void>? onLoad() async {
@@ -38,10 +31,12 @@ class PlayerComponent extends Character {
 
     // init animation
     idleAnimation = spriteSheet.createAnimationByLimit(
+        xInit: 1, yInit: 0, step: 1, sizeX: 2, stepTime: .08);
+    chewAnimation = spriteSheet.createAnimationByLimit(
         xInit: 0, yInit: 0, step: 4, sizeX: 2, stepTime: .08);
     // end animation
 
-    animation = idleAnimation;
+    animation = chewAnimation;
 
     body = RectangleHitbox(
         size: Vector2(spriteSheetWidth / 4 - 70, spriteSheetHeight / 4),
@@ -63,15 +58,11 @@ class PlayerComponent extends Character {
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (keysPressed.isEmpty) {
       movementType = MovementType.idle;
-      // isMoving = false;
     }
-    // else {
-    //   isMoving = true;
-    // }
 
-    //**** RIGHT
     if (keysPressed.contains(LogicalKeyboardKey.arrowRight) ||
         keysPressed.contains(LogicalKeyboardKey.keyD)) {
+      //**** RIGHT
       movementType = MovementType.right;
     } else if (keysPressed.contains(LogicalKeyboardKey.arrowLeft) || //**** LEFT
         keysPressed.contains(LogicalKeyboardKey.keyA)) {
@@ -85,33 +76,35 @@ class PlayerComponent extends Character {
       movementType = MovementType.down;
     }
 
+    if (keysPressed.contains(LogicalKeyboardKey.keyR)) {
+      //**** R
+      movementType = MovementType.rotate;
+    }
+
     return true;
   }
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    movePlayer(dt);
+  }
+
   void movePlayer(double delta) {
-    // if (movementType == playerCollisionDirection) {
-    //   return;
-    // }
-
-    // if (playerCollisionDirection.contains(movementType)) {
-    //   return;
-    // }
-
     switch (movementType) {
       case MovementType.right:
       case MovementType.left:
-        if (position.x < 500 - size.x) {
-          position.add(Vector2(
-              delta * speed * (movementType == MovementType.left ? -1 : 1), 0));
-        }
-
+        position.add(Vector2(
+            delta * speed * (movementType == MovementType.left ? -1 : 1), 0));
         break;
       case MovementType.up:
       case MovementType.down:
-        if (position.y > 0) {
-          position.add(Vector2(
-              0, delta * speed * (movementType == MovementType.up ? -1 : 1)));
-        }
+        position.add(Vector2(
+            0, delta * speed * (movementType == MovementType.up ? -1 : 1)));
+        break;
+      case MovementType.rotate:
+        angle += math.pi * 1 / 2 * delta;
         break;
       case MovementType.idle:
         break;
