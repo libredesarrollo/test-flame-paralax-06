@@ -5,14 +5,39 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 // import 'package:flame/parallax.dart';
 import 'package:parallax06/background/candy_background.dart';
+import 'package:parallax06/components/candy_component.dart';
 import 'package:parallax06/components/player_component.dart';
+import 'package:parallax06/components/food.dart' as food;
 
 class MyGame extends FlameGame with HasKeyboardHandlerComponents {
+  double foodTimer = 0.0;
+  int foodIndex = 0;
+
   @override
   void onLoad() async {
     super.onLoad();
+    await food.init();
     add(CandyBackground());
     add(PlayerComponent(game: this));
+  }
+
+  @override
+  void update(double dt) {
+    addSpriteFoodToWindow(dt);
+    super.update(dt);
+  }
+
+  addSpriteFoodToWindow(double dt) {
+    if (foodIndex < food.foodLevel1Size) {
+      if (foodTimer > food.foodLevel1[foodIndex].time) {
+        add(CandyComponent(food: food.foodLevel1[foodIndex].food));
+        foodTimer = 0.0;
+        foodIndex++;
+        print(foodIndex);
+      }
+
+      foodTimer += dt;
+    }
   }
 
   // Future<ParallaxComponent> bgParallax() async {
