@@ -21,7 +21,7 @@ class PlayerComponent extends Character {
     size = Vector2(spriteSheetWidth, spriteSheetHeight);
     // scale = Vector2.all(1.5);
   }
-
+// flipHorizontally();
   @override
   Future<void>? onLoad() async {
     final spriteImage = await Flame.images.load('shark.png');
@@ -78,7 +78,28 @@ class PlayerComponent extends Character {
 
     if (keysPressed.contains(LogicalKeyboardKey.keyR)) {
       //**** R
-      movementType = MovementType.rotate;
+
+      switch (rotateType) {
+        case RotateType.right:
+          rotateType = RotateType.down;
+          break;
+        case RotateType.down:
+          rotateType = RotateType.left;
+          break;
+        case RotateType.left:
+          rotateType = RotateType.up;
+          break;
+        case RotateType.up:
+          rotateType = RotateType.right;
+          break;
+      }
+
+      angle += math.pi * 1 / 2;
+      // print(rotateType);
+      if (rotateType == RotateType.left || rotateType == RotateType.right) {
+        print("flipVertically");
+        flipVertically();
+      }
     }
 
     return true;
@@ -103,9 +124,9 @@ class PlayerComponent extends Character {
         position.add(Vector2(
             0, delta * speed * (movementType == MovementType.up ? -1 : 1)));
         break;
-      case MovementType.rotate:
-        angle += math.pi * 1 / 2 * delta;
-        break;
+      // case MovementType.rotate:
+      // angle += math.pi * 1 / 2 * delta;
+      // break;
       case MovementType.idle:
         break;
     }
