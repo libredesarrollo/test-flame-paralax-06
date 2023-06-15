@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:parallax06/utils/helper.dart';
 
 /* 
 tipos de comidas que pudieran estar en el sprite sheet, en el 
@@ -14,18 +15,18 @@ el nivel,
 
 XX Se indica la posicion por donde va a aparecer
 */
-enum Direction {
-  top1,
-  top2,
-  top3,
-  right1,
-  right2,
-  bottom1,
-  bottom2,
-  bottom3,
-  left1,
-  left2
-}
+// enum Direction {
+//   top1,
+//   top2,
+//   top3,
+//   right1,
+//   right2,
+//   bottom1,
+//   bottom2,
+//   bottom3,
+//   left1,
+//   left2
+// }
 
 // enum Food {
 //   cake1,
@@ -60,11 +61,16 @@ de generar el sprite de comida
 */
 class FoodPreSprite {
   Food food; // comida
-  double time; // tiempo para aparecer en la pantalla mediante la funcion update
-  Direction direction;
+  double
+      speed; // tiempo para aparecer en la pantalla mediante la funcion update
+  SideType sideType;
   // int velocity; // velocidad de desplazamiento del sprite
+  int timeToOtherFood;
   FoodPreSprite(
-      {required this.food, required this.time, required this.direction});
+      {required this.food,
+      required this.speed,
+      required this.sideType,
+      this.timeToOtherFood = 3});
 }
 
 List<Food> food = [
@@ -122,14 +128,14 @@ init() async {
 // cada posicion de la lista equivale a un sprite en el sprite sheet
 
 List<FoodPreSprite> foodLevel1 = [
-  FoodPreSprite(food: food[0], direction: Direction.top1, time: 2.5),
-  FoodPreSprite(food: food[0], direction: Direction.top1, time: 2.5),
-  FoodPreSprite(food: food[2], direction: Direction.top2, time: 3.5),
-  FoodPreSprite(food: food[4], direction: Direction.top1, time: .5),
-  FoodPreSprite(food: food[0], direction: Direction.top3, time: 2.5),
-  FoodPreSprite(food: food[1], direction: Direction.top1, time: .4),
-  FoodPreSprite(food: food[3], direction: Direction.top1, time: 2.5),
-  FoodPreSprite(food: food[3], direction: Direction.top1, time: 2.5),
+  FoodPreSprite(food: food[0], sideType: SideType.up, speed: 250),
+  FoodPreSprite(food: food[0], sideType: SideType.down, speed: 250),
+  FoodPreSprite(food: food[2], sideType: SideType.left, speed: 350),
+  FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
+  FoodPreSprite(food: food[0], sideType: SideType.up, speed: 250),
+  FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
+  FoodPreSprite(food: food[3], sideType: SideType.left, speed: 250),
+  FoodPreSprite(food: food[3], sideType: SideType.right, speed: 250),
 ];
 
 // cantidad de sprite en el sprite sheet

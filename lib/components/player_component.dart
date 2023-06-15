@@ -10,6 +10,7 @@ import 'package:flame/components.dart';
 import 'package:parallax06/utils/create_animation_by_limit.dart';
 import 'package:parallax06/components/character.dart';
 import 'package:parallax06/main.dart';
+import 'package:parallax06/utils/helper.dart';
 
 class PlayerComponent extends Character {
   MyGame game;
@@ -38,12 +39,13 @@ class PlayerComponent extends Character {
 
     animation = chewAnimation;
 
-    body = RectangleHitbox(
-        size: Vector2(spriteSheetWidth / 4 - 70, spriteSheetHeight / 4),
-        position: Vector2(25, 0))
-      ..collisionType = CollisionType.active;
+    body = RectangleHitbox()..collisionType = CollisionType.active;
 
-    // mouth = RectangleHitbox(
+    //
+    //
+    // size: Vector2(spriteSheetWidth / 4 - 70, spriteSheetHeight / 4),
+    // position: Vector2(25, 0)
+    //mouth = RectangleHitbox(
     //     size: Vector2(50, 10),
     //     position: Vector2(55, spriteSheetHeight / 4 - 20))
     //   ..collisionType = CollisionType.passive;
@@ -80,23 +82,23 @@ class PlayerComponent extends Character {
       //**** R
 
       switch (rotateType) {
-        case RotateType.right:
-          rotateType = RotateType.down;
+        case SideType.right:
+          rotateType = SideType.down;
           break;
-        case RotateType.down:
-          rotateType = RotateType.left;
+        case SideType.down:
+          rotateType = SideType.left;
           break;
-        case RotateType.left:
-          rotateType = RotateType.up;
+        case SideType.left:
+          rotateType = SideType.up;
           break;
-        case RotateType.up:
-          rotateType = RotateType.right;
+        case SideType.up:
+          rotateType = SideType.right;
           break;
       }
 
       angle += math.pi * 1 / 2;
       // print(rotateType);
-      if (rotateType == RotateType.left || rotateType == RotateType.right) {
+      if (rotateType == SideType.left || rotateType == SideType.right) {
         print("flipVertically");
         flipVertically();
       }

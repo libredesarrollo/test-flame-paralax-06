@@ -1,14 +1,15 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:parallax06/utils/helper.dart';
 
 enum MovementType { idle, right, left, up, down }
 
-enum RotateType { right, left, up, down }
+// enum RotateType { right, left, up, down }
 
 class Character extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks {
   MovementType movementType = MovementType.idle;
-  RotateType rotateType = RotateType.left;
+  SideType rotateType = SideType.left;
 
   Vector2 velocity = Vector2(0, 0);
 
