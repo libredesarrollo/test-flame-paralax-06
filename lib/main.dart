@@ -33,7 +33,6 @@ class MyGame extends FlameGame with HasKeyboardHandlerComponents {
         add(FoodComponent(foodPreSprite: food.foodLevel1[foodIndex]));
         foodTimer = 0.0;
         foodIndex++;
-        print(foodIndex);
       }
 
       foodTimer += dt;

@@ -39,11 +39,32 @@ class FoodComponent extends SpriteComponent with CollisionCallbacks {
 
     if (foodPreSprite.sideType == SideType.up ||
         foodPreSprite.sideType == SideType.down) {
+      // position = Vector2(screenWidth, factY == 1 ? 1 : screenHeight); // PRUEBAS para los extremos
       position = Vector2(
           random.nextDouble() * screenWidth, factY == 1 ? 1 : screenHeight);
+
+      if (position.x > (screenWidth - size.x / 2)) {
+        // muy pegado al lado derecho
+        print("muy pegado al lado derecho X" + position.x.toString());
+        position.x = screenWidth - size.x;
+      } else if (position.x - size.x <= 0) {
+        // muy pegado al lado izquierdo
+        print("muy pegado al lado izquierdo X" + position.x.toString());
+        position.x = size.x;
+      }
     } else {
       position = Vector2(
           factX == 1 ? 1 : screenWidth, random.nextDouble() * screenHeight);
+
+      if (position.y > (screenHeight - size.y / 2)) {
+        // muy pegado al lado derecho
+        print("muy pegado al lado derecho " + position.y.toString());
+        position.y = screenHeight - size.y;
+      } else if (position.y - size.y <= 0) {
+        // muy pegado al lado izquierdo
+        print("muy pegado al lado izquierdo " + position.y.toString());
+        position.y = size.y;
+      }
     }
   }
 
