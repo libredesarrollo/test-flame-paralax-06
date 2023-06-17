@@ -100,9 +100,21 @@ class FoodComponent extends SpriteComponent with CollisionCallbacks {
     position.add(Vector2(
         foodPreSprite.speed * dt * factX, foodPreSprite.speed * dt * factY));
 
-    if (position.y > screenHeight) {
+    if (foodPreSprite.sideType == SideType.up && position.y > screenHeight) {
       removeFromParent();
-      print("remove!");
+      print("remove! SideType.up");
+    } else if (foodPreSprite.sideType == SideType.down &&
+        position.y < -size.y) {
+      removeFromParent();
+      print("remove! SideType.down");
+    } else if (foodPreSprite.sideType == SideType.left &&
+        position.x > screenWidth) {
+      removeFromParent();
+      print("remove! SideType.left");
+    } else if (foodPreSprite.sideType == SideType.right &&
+        position.x < -size.x) {
+      removeFromParent();
+      print("remove! SideType.right");
     }
 
     super.update(dt);

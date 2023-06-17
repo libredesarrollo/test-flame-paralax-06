@@ -128,14 +128,14 @@ init() async {
 // cada posicion de la lista equivale a un sprite en el sprite sheet
 
 List<FoodPreSprite> foodLevel1 = [
-  // FoodPreSprite(food: food[0], sideType: SideType.up, speed: 250),
-  // FoodPreSprite(food: food[0], sideType: SideType.down, speed: 250),
-  FoodPreSprite(food: food[2], sideType: SideType.left, speed: 350),
-  FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
-  // FoodPreSprite(food: food[0], sideType: SideType.up, speed: 250),
-  // FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
-  FoodPreSprite(food: food[3], sideType: SideType.left, speed: 250),
-  FoodPreSprite(food: food[3], sideType: SideType.right, speed: 250),
+  FoodPreSprite(food: food[0], sideType: SideType.up, speed: 250),
+  FoodPreSprite(food: food[0], sideType: SideType.down, speed: 250),
+  // FoodPreSprite(food: food[2], sideType: SideType.left, speed: 350),
+  // FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
+  FoodPreSprite(food: food[0], sideType: SideType.up, speed: 250),
+  FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
+  // FoodPreSprite(food: food[3], sideType: SideType.left, speed: 250),
+  // FoodPreSprite(food: food[3], sideType: SideType.right, speed: 250),
 ];
 
 // cantidad de sprite en el sprite sheet
