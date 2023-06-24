@@ -13,11 +13,11 @@ class Character extends SpriteAnimationComponent
 
   Vector2 velocity = Vector2(0, 0);
 
-  double speed = 160;
+  double speed = 350;
 
   final double spriteSheetWidth = 269, spriteSheetHeight = 118;
 
   late SpriteAnimation chewAnimation, idleAnimation;
 
-  late RectangleHitbox body;
+  late RectangleHitbox body, mouth;
 }

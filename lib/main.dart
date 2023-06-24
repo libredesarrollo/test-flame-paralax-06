@@ -9,7 +9,8 @@ import 'package:parallax06/components/food_component.dart';
 import 'package:parallax06/components/player_component.dart';
 import 'package:parallax06/components/food.dart' as food;
 
-class MyGame extends FlameGame with HasKeyboardHandlerComponents {
+class MyGame extends FlameGame
+    with HasKeyboardHandlerComponents, HasCollisionDetection {
   double foodTimer = 0.0;
   int foodIndex = 0;
 

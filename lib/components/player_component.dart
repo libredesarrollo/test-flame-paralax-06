@@ -31,13 +31,15 @@ class PlayerComponent extends Character {
         srcSize: Vector2(spriteSheetWidth, spriteSheetHeight));
 
     // init animation
-    idleAnimation = spriteSheet.createAnimationByLimit(
-        xInit: 1, yInit: 0, step: 1, sizeX: 2, stepTime: .08);
     chewAnimation = spriteSheet.createAnimationByLimit(
         xInit: 0, yInit: 0, step: 4, sizeX: 2, stepTime: .08);
+
+    idleAnimation = spriteSheet.createAnimationByLimit(
+        xInit: 1, yInit: 0, step: 1, sizeX: 2, stepTime: .08);
+
     // end animation
 
-    animation = chewAnimation;
+    animation = idleAnimation;
 
     body = RectangleHitbox()..collisionType = CollisionType.active;
 
@@ -45,13 +47,11 @@ class PlayerComponent extends Character {
     //
     // size: Vector2(spriteSheetWidth / 4 - 70, spriteSheetHeight / 4),
     // position: Vector2(25, 0)
-    //mouth = RectangleHitbox(
-    //     size: Vector2(50, 10),
-    //     position: Vector2(55, spriteSheetHeight / 4 - 20))
-    //   ..collisionType = CollisionType.passive;
+    mouth = RectangleHitbox(size: Vector2(50, 35), position: Vector2(40, 65))
+      ..collisionType = CollisionType.active;
 
     add(body);
-    // add(foot);
+    add(mouth);
 
     return super.onLoad();
   }
@@ -112,6 +112,16 @@ class PlayerComponent extends Character {
     super.update(dt);
 
     movePlayer(dt);
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (mouth.isColliding) {
+      print("mouth.isColliding");
+      other.removeFromParent();
+    }
+    super.onCollisionStart(intersectionPoints, other);
   }
 
   void movePlayer(double delta) {

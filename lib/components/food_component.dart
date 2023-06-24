@@ -39,31 +39,36 @@ class FoodComponent extends SpriteComponent with CollisionCallbacks {
 
     if (foodPreSprite.sideType == SideType.up ||
         foodPreSprite.sideType == SideType.down) {
-      // position = Vector2(screenWidth, factY == 1 ? 1 : screenHeight); // PRUEBAS para los extremos
       position = Vector2(
           random.nextDouble() * screenWidth, factY == 1 ? 1 : screenHeight);
+      // position = Vector2(/*screenWidth*/ 0,  factY == 1 ? 1 : screenHeight); // PRUEBAS para los extremos
 
-      if (position.x > (screenWidth - size.x / 2)) {
-        // muy pegado al lado derecho
-        print("muy pegado al lado derecho X" + position.x.toString());
-        position.x = screenWidth - size.x;
-      } else if (position.x - size.x <= 0) {
-        // muy pegado al lado izquierdo
-        print("muy pegado al lado izquierdo X" + position.x.toString());
-        position.x = size.x;
-      }
+      // verificamos que el dulce generado no este muy pegado al lado derecho/izquierdo
+      // if (position.x > (screenWidth - size.x / 2)) {
+      // muy pegado al lado derecho
+      //print("muy pegado al lado derecho X" + position.x.toString());
+      //colocamos el dulce en una posicion visible en la pantalla
+      //position.x = screenWidth - size.x;
+      /*} else*/
+      // if (position.x - size.x <= 0) {
+      //   // muy pegado al lado izquierdo
+      //   print("muy pegado al lado izquierdo X" + position.x.toString());
+      //   //colocamos el dulce en una posicion visible en la pantalla
+      //   position.x = 0;
+      // }
     } else {
       position = Vector2(
           factX == 1 ? 1 : screenWidth, random.nextDouble() * screenHeight);
+      position = Vector2(factX == 1 ? 1 : screenWidth, screenHeight);
 
       if (position.y > (screenHeight - size.y / 2)) {
-        // muy pegado al lado derecho
-        print("muy pegado al lado derecho " + position.y.toString());
+        //   // muy pegado al lado derecho
+        //   print("muy pegado al lado derecho " + position.y.toString());
         position.y = screenHeight - size.y;
-      } else if (position.y - size.y <= 0) {
-        // muy pegado al lado izquierdo
+        // } else if (position.y - size.y <= 0) {
+        //   // muy pegado al lado izquierdo
         print("muy pegado al lado izquierdo " + position.y.toString());
-        position.y = size.y;
+        //   position.y = size.y;
       }
     }
   }
@@ -85,7 +90,7 @@ class FoodComponent extends SpriteComponent with CollisionCallbacks {
     _initPosition();
 
     // hitbox.renderShape = false;
-    // hitbox.collisionType = CollisionType.passive;
+    hitbox.collisionType = CollisionType.passive;
     add(hitbox);
 
     sprite = foodPreSprite.food.sprite;
@@ -100,6 +105,7 @@ class FoodComponent extends SpriteComponent with CollisionCallbacks {
     position.add(Vector2(
         foodPreSprite.speed * dt * factX, foodPreSprite.speed * dt * factY));
 
+    // remover dulces cuando ya no sean visibles en la ventana
     if (foodPreSprite.sideType == SideType.up && position.y > screenHeight) {
       removeFromParent();
       print("remove! SideType.up");
