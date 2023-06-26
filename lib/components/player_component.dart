@@ -6,6 +6,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/components.dart';
+import 'package:parallax06/components/food.dart';
+import 'package:parallax06/components/food_component.dart';
 
 import 'package:parallax06/utils/create_animation_by_limit.dart';
 import 'package:parallax06/components/character.dart';
@@ -14,6 +16,9 @@ import 'package:parallax06/utils/helper.dart';
 
 class PlayerComponent extends Character {
   MyGame game;
+  double changeAnimationTimer = 0;
+  double timeToChangeAnimation = 0;
+  bool chewing = false;
 
   PlayerComponent({required this.game}) : super() {
     anchor = Anchor.center;
@@ -111,14 +116,30 @@ class PlayerComponent extends Character {
   void update(double dt) {
     super.update(dt);
 
+    if (chewing) {
+      changeAnimationTimer += dt;
+      if (changeAnimationTimer >= timeToChangeAnimation) {
+        timeToChangeAnimation = 0;
+        changeAnimationTimer = 0;
+        chewing = false;
+        animation = idleAnimation;
+      }
+    }
+
     movePlayer(dt);
   }
 
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (mouth.isColliding) {
-      print("mouth.isColliding");
+    if (mouth.isColliding &&
+        other is FoodComponent &&
+        !chewing &&
+        rotateType == other.foodPreSprite.sideType) {
+      timeToChangeAnimation = other.foodPreSprite.food.chewed;
+      chewing = true;
+      animation = chewAnimation;
+
       other.removeFromParent();
     }
     super.onCollisionStart(intersectionPoints, other);

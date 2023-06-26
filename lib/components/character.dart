@@ -13,7 +13,7 @@ class Character extends SpriteAnimationComponent
 
   Vector2 velocity = Vector2(0, 0);
 
-  double speed = 350;
+  double speed = 500;
 
   final double spriteSheetWidth = 269, spriteSheetHeight = 118;
 
