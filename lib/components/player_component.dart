@@ -14,13 +14,12 @@ import 'package:parallax06/components/character.dart';
 import 'package:parallax06/main.dart';
 import 'package:parallax06/utils/helper.dart';
 
-class PlayerComponent extends Character {
-  MyGame game;
+class PlayerComponent extends Character with HasGameRef<MyGame> {
   double changeAnimationTimer = 0;
   double timeToChangeAnimation = 0;
   bool chewing = false;
 
-  PlayerComponent({required this.game}) : super() {
+  PlayerComponent() : super() {
     anchor = Anchor.center;
     debugMode = true;
     position = Vector2(spriteSheetWidth, spriteSheetHeight);
@@ -139,6 +138,10 @@ class PlayerComponent extends Character {
       timeToChangeAnimation = other.foodPreSprite.food.chewed;
       chewing = true;
       animation = chewAnimation;
+
+      gameRef.points++;
+      gameRef.eatenCandy++;
+      game.refreshOverlayStatistics();
 
       other.removeFromParent();
     }

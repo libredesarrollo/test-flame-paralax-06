@@ -9,11 +9,13 @@ import 'package:flame/palette.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/components.dart';
 import 'package:parallax06/components/food.dart';
+import 'package:parallax06/main.dart';
 
 import 'package:parallax06/utils/create_animation_by_limit.dart';
 import 'package:parallax06/utils/helper.dart';
 
-class FoodComponent extends SpriteComponent with CollisionCallbacks {
+class FoodComponent extends SpriteComponent
+    with CollisionCallbacks, HasGameRef<MyGame> {
   FoodPreSprite foodPreSprite;
 
   int factX = 0, factY = 0;
@@ -109,18 +111,22 @@ class FoodComponent extends SpriteComponent with CollisionCallbacks {
     if (foodPreSprite.sideType == SideType.up && position.y > screenHeight) {
       removeFromParent();
       print("remove! SideType.up");
+      gameRef.lostCandy++;
     } else if (foodPreSprite.sideType == SideType.down &&
         position.y < -size.y) {
       removeFromParent();
       print("remove! SideType.down");
+      gameRef.lostCandy++;
     } else if (foodPreSprite.sideType == SideType.left &&
         position.x > screenWidth) {
       removeFromParent();
       print("remove! SideType.left");
+      gameRef.lostCandy++;
     } else if (foodPreSprite.sideType == SideType.right &&
         position.x < -size.x) {
       removeFromParent();
       print("remove! SideType.right");
+      gameRef.lostCandy++;
     }
 
     super.update(dt);

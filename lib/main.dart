@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-// import 'package:flame/components.dart';
+import 'package:flame/components.dart';
+import 'package:flame/particles.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 // import 'package:flame/parallax.dart';
@@ -8,19 +11,88 @@ import 'package:parallax06/background/candy_background.dart';
 import 'package:parallax06/components/food_component.dart';
 import 'package:parallax06/components/player_component.dart';
 import 'package:parallax06/components/food.dart' as food;
+import 'package:parallax06/overlay/statistics_overlay.dart';
+
+class SineCurve extends Curve {
+  @override
+  double transformInternal(double t) {
+    return (sin(pi * (t * 2 - 1 / 2)) + 1) / 2;
+  }
+}
 
 class MyGame extends FlameGame
     with HasKeyboardHandlerComponents, HasCollisionDetection {
   double foodTimer = 0.0;
   int foodIndex = 0;
 
+  int points = 0;
+  int eatenCandy = 0;
+  int lostCandy = 0;
+
   @override
   void onLoad() async {
     super.onLoad();
     await food.init();
     add(CandyBackground());
-    add(PlayerComponent(game: this));
+    add(PlayerComponent());
+
+    add(ParticleSystemComponent(particle: paintParticle())
+      ..position = Vector2(500, 500));
   }
+
+  refreshOverlayStatistics() {
+    overlays.remove('Statistics');
+    overlays.add('Statistics');
+  }
+
+  Particle paintParticle() {
+    final colors = [
+      const Color(0xffff0000),
+      const Color(0xff00ff00),
+      const Color(0xff0000ff),
+    ];
+    final positions = [
+      Vector2(-10, 10),
+      Vector2(10, 10),
+      Vector2(0, -14),
+    ];
+
+    return Particle.generate(
+      count: 3,
+      generator: (i) => PaintParticle(
+        paint: Paint()..blendMode = BlendMode.difference,
+        child: MovingParticle(
+          curve: SineCurve(),
+          from: positions[i],
+          to: i == 0 ? positions.last : positions[i - 1],
+          child: CircleParticle(
+            radius: 5.0,
+            paint: Paint()..color = colors[i],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Particle circle() {
+    return CircleParticle(
+      paint: Paint()..color = Colors.white10,
+    );
+  }
+
+  // Vector2 randomCellVector2() {
+  //   return (Vector2.random() - Vector2.random())..multiply(cellSize);
+  // }
+
+  // Particle randomMovingParticle() {
+  //   return MovingParticle(
+  //     to: randomCellVector2(),
+  //     child: CircleParticle(
+  //       radius: 5 + rnd.nextDouble() * 5,
+  //       paint: Paint()..color = Colors.red,
+  //     ),
+  //   );
+  // }
 
   @override
   void update(double dt) {
@@ -58,5 +130,13 @@ class MyGame extends FlameGame
 }
 
 void main() {
-  runApp(GameWidget(game: MyGame()));
+  runApp(GameWidget(
+    game: MyGame(),
+    overlayBuilderMap: {
+      'Statistics': (context, MyGame game) {
+        return StatisticsOverlay(game: game);
+      },
+    },
+    initialActiveOverlays: const ['Statistics'],
+  ));
 }
