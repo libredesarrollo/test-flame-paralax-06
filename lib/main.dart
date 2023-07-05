@@ -12,6 +12,7 @@ import 'package:parallax06/components/food_component.dart';
 import 'package:parallax06/components/player_component.dart';
 import 'package:parallax06/components/food.dart' as food;
 import 'package:parallax06/overlay/statistics_overlay.dart';
+import 'package:parallax06/utils/type_game.dart';
 
 class SineCurve extends Curve {
   @override
@@ -36,13 +37,31 @@ class MyGame extends FlameGame
     add(CandyBackground());
     add(PlayerComponent());
 
-    add(ParticleSystemComponent(particle: paintParticle())
-      ..position = Vector2(500, 500));
+    // add(ParticleSystemComponent(particle: paintParticle())
+    //   ..position = Vector2(500, 500));
   }
 
   refreshOverlayStatistics() {
     overlays.remove('Statistics');
     overlays.add('Statistics');
+
+    checkEndGame();
+  }
+
+  checkEndGame() {
+    switch (
+        oneLost(food.foodLevel1, points, eatenCandy, lostCandy, foodIndex)) {
+      case StateGame.lose:
+        print("losing");
+        paused = true;
+        break;
+      case StateGame.win:
+        print("win");
+        paused = true;
+        break;
+      default:
+        break;
+    }
   }
 
   Particle paintParticle() {
