@@ -127,16 +127,43 @@ init() async {
 
 // cada posicion de la lista equivale a un sprite en el sprite sheet
 
-List<FoodPreSprite> foodLevel1 = [
-  FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
-  FoodPreSprite(food: food[0], sideType: SideType.down, speed: 80),
-  FoodPreSprite(food: food[2], sideType: SideType.left, speed: 35),
-  FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
-  FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
-  FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
-  FoodPreSprite(food: food[3], sideType: SideType.left, speed: 80),
-  FoodPreSprite(food: food[3], sideType: SideType.right, speed: 80),
-];
+// List<FoodPreSprite> foodLevel1 = [
+//   FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
+//   FoodPreSprite(food: food[0], sideType: SideType.down, speed: 80),
+//   FoodPreSprite(food: food[2], sideType: SideType.left, speed: 35),
+//   FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
+//   FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
+//   FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
+//   FoodPreSprite(food: food[3], sideType: SideType.left, speed: 80),
+//   FoodPreSprite(food: food[3], sideType: SideType.right, speed: 80),
+// ];
 
 // cantidad de sprite en el sprite sheet
-int foodLevel1Size = foodLevel1.length;
+//int foodLevel1Size = foodLevel1.length;
+
+List<FoodPreSprite> getCurrentLevel({int level = 1}) {
+  switch (level - 1) {
+    case 2:
+      return [
+        FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
+        FoodPreSprite(food: food[0], sideType: SideType.down, speed: 80),
+        FoodPreSprite(food: food[2], sideType: SideType.left, speed: 35),
+        FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
+        FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
+        FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
+        FoodPreSprite(food: food[3], sideType: SideType.left, speed: 80),
+        FoodPreSprite(food: food[3], sideType: SideType.right, speed: 80),
+      ];
+    default:
+      return [
+        FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
+        FoodPreSprite(food: food[0], sideType: SideType.down, speed: 80),
+        FoodPreSprite(food: food[2], sideType: SideType.left, speed: 35),
+        FoodPreSprite(food: food[4], sideType: SideType.right, speed: 50),
+        FoodPreSprite(food: food[0], sideType: SideType.up, speed: 80),
+        FoodPreSprite(food: food[1], sideType: SideType.down, speed: 400),
+        FoodPreSprite(food: food[3], sideType: SideType.left, speed: 80),
+        FoodPreSprite(food: food[3], sideType: SideType.right, speed: 80),
+      ];
+  }
+}

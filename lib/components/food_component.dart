@@ -110,23 +110,23 @@ class FoodComponent extends SpriteComponent
     // remover dulces cuando ya no sean visibles en la ventana
     if (foodPreSprite.sideType == SideType.up && position.y > screenHeight) {
       removeFromParent();
-      print("remove! SideType.up");
-      gameRef.lostCandy++;
+      game.lostCandy++;
+      game.refreshOverlayStatistics();
     } else if (foodPreSprite.sideType == SideType.down &&
         position.y < -size.y) {
       removeFromParent();
-      print("remove! SideType.down");
-      gameRef.lostCandy++;
+      game.lostCandy++;
+      game.refreshOverlayStatistics();
     } else if (foodPreSprite.sideType == SideType.left &&
         position.x > screenWidth) {
       removeFromParent();
-      print("remove! SideType.left");
-      gameRef.lostCandy++;
-    } else if (foodPreSprite.sideType == SideType.right &&
-        position.x < -size.x) {
+      game.lostCandy++;
+      game.refreshOverlayStatistics();
+    }
+    if (foodPreSprite.sideType == SideType.right && position.x < -size.x) {
       removeFromParent();
-      print("remove! SideType.right");
-      gameRef.lostCandy++;
+      game.lostCandy++;
+      game.refreshOverlayStatistics();
     }
 
     super.update(dt);

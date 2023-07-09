@@ -11,6 +11,7 @@ import 'package:parallax06/background/candy_background.dart';
 import 'package:parallax06/components/food_component.dart';
 import 'package:parallax06/components/player_component.dart';
 import 'package:parallax06/components/food.dart' as food;
+import 'package:parallax06/overlay/game_over_overlay.dart';
 import 'package:parallax06/overlay/statistics_overlay.dart';
 import 'package:parallax06/utils/type_game.dart';
 
@@ -29,6 +30,7 @@ class MyGame extends FlameGame
   int points = 0;
   int eatenCandy = 0;
   int lostCandy = 0;
+  int _currentLevel = 1;
 
   @override
   void onLoad() async {
@@ -49,14 +51,16 @@ class MyGame extends FlameGame
   }
 
   checkEndGame() {
-    switch (
-        oneLost(food.foodLevel1, points, eatenCandy, lostCandy, foodIndex)) {
+    switch (oneLost(
+        food.getCurrentLevel(level: _currentLevel), eatenCandy, lostCandy)) {
       case StateGame.lose:
         print("losing");
+        overlays.add('GameOver');
         paused = true;
         break;
       case StateGame.win:
         print("win");
+        overlays.add('GameOver');
         paused = true;
         break;
       default:
@@ -120,9 +124,14 @@ class MyGame extends FlameGame
   }
 
   addSpriteFoodToWindow(double dt) {
-    if (foodIndex < food.foodLevel1Size) {
-      if (foodTimer > food.foodLevel1[foodIndex].timeToOtherFood) {
-        add(FoodComponent(foodPreSprite: food.foodLevel1[foodIndex]));
+    if (foodIndex < food.getCurrentLevel(level: _currentLevel).length) {
+      if (foodTimer >
+          food
+              .getCurrentLevel(level: _currentLevel)[foodIndex]
+              .timeToOtherFood) {
+        add(FoodComponent(
+            foodPreSprite:
+                food.getCurrentLevel(level: _currentLevel)[foodIndex]));
         foodTimer = 0.0;
         foodIndex++;
       }
@@ -155,6 +164,11 @@ void main() {
       'Statistics': (context, MyGame game) {
         return StatisticsOverlay(game: game);
       },
+      'GameOver': (context, MyGame game) {
+        return GameOverOverlay(
+          game: game,
+        );
+      }
     },
     initialActiveOverlays: const ['Statistics'],
   ));
