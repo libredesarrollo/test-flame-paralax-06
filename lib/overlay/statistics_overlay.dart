@@ -35,7 +35,34 @@ class _StatisticsOverlayState extends State<StatisticsOverlay> {
                     fontSize: 30,
                     color: Colors.amber,
                     shadows: [Shadow(color: Colors.black, blurRadius: 5.0)]),
-              )
+              ),
+              const Expanded(
+                child: SizedBox(),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget.game.paused = !widget.game.paused;
+                  });
+                },
+                child: Icon(
+                  widget.game.paused ? Icons.play_arrow : Icons.pause,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget.game.reset();
+                  });
+                },
+                child: const Icon(
+                  Icons.replay,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
             ],
           ),
           Row(

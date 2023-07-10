@@ -20,12 +20,23 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
   bool chewing = false;
 
   PlayerComponent() : super() {
+    _init();
+  }
+  _init() {
     anchor = Anchor.center;
     debugMode = true;
     position = Vector2(spriteSheetWidth, spriteSheetHeight);
     size = Vector2(spriteSheetWidth, spriteSheetHeight);
-    // scale = Vector2.all(1.5);
   }
+
+  reset() {
+    _init();
+    changeAnimationTimer = 0;
+    timeToChangeAnimation = 0;
+    chewing = false;
+    animation = idleAnimation;
+  }
+
 // flipHorizontally();
   @override
   Future<void>? onLoad() async {

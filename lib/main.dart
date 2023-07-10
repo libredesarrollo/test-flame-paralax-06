@@ -31,13 +31,15 @@ class MyGame extends FlameGame
   int eatenCandy = 0;
   int lostCandy = 0;
   int _currentLevel = 1;
+  late PlayerComponent _playerComponent;
 
   @override
   void onLoad() async {
     super.onLoad();
     await food.init();
     add(CandyBackground());
-    add(PlayerComponent());
+    _playerComponent = PlayerComponent();
+    add(_playerComponent);
 
     // add(ParticleSystemComponent(particle: paintParticle())
     //   ..position = Vector2(500, 500));
@@ -155,6 +157,22 @@ class MyGame extends FlameGame
 
   //   return parallaxComponent;
   // }
+
+  void reset({bool dead = false}) {
+    paused = false;
+    foodTimer = 0.0;
+    foodIndex = 0;
+
+    points = 0;
+    eatenCandy = 0;
+    lostCandy = 0;
+    _currentLevel = 1;
+    _playerComponent.reset();
+
+    overlays.remove('GameOver');
+    overlays.remove('Statistics');
+    overlays.add('Statistics');
+  }
 }
 
 void main() {
