@@ -2,6 +2,8 @@ import 'package:parallax06/components/food.dart';
 
 enum StateGame { running, win, lose }
 
+enum TypeGame { oneLost, byPoints, onlyTypeFood, notEatenThisFood }
+
 // tipo de juego que se termina cuando el player pierde un dulce
 StateGame oneLost(List<FoodPreSprite> levelN, int eatenFood, int lostFood) {
   if (lostFood >= 1) return StateGame.lose;

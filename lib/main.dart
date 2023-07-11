@@ -31,6 +31,8 @@ class MyGame extends FlameGame
   int eatenCandy = 0;
   int lostCandy = 0;
   int _currentLevel = 1;
+  TypeGame _typeGame = TypeGame.byPoints;
+
   late PlayerComponent _playerComponent;
 
   @override
@@ -158,7 +160,10 @@ class MyGame extends FlameGame
   //   return parallaxComponent;
   // }
 
-  void reset({bool dead = false}) {
+  void reset(
+      {bool dead = false,
+      int currentLevel = 1,
+      TypeGame typeGame = TypeGame.byPoints}) {
     paused = false;
     foodTimer = 0.0;
     foodIndex = 0;
@@ -166,7 +171,10 @@ class MyGame extends FlameGame
     points = 0;
     eatenCandy = 0;
     lostCandy = 0;
-    _currentLevel = 1;
+
+    _currentLevel = currentLevel;
+    _typeGame = typeGame;
+
     _playerComponent.reset();
 
     overlays.remove('GameOver');
