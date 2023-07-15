@@ -9,9 +9,11 @@ import 'package:flame/input.dart';
 // import 'package:flame/parallax.dart';
 import 'package:parallax06/background/candy_background.dart';
 import 'package:parallax06/components/food_component.dart';
+import 'package:parallax06/components/hud/hud.dart';
 import 'package:parallax06/components/player_component.dart';
 import 'package:parallax06/components/food.dart' as food;
 import 'package:parallax06/overlay/game_over_overlay.dart';
+import 'package:parallax06/overlay/level_selection_overlay.dart';
 import 'package:parallax06/overlay/statistics_overlay.dart';
 import 'package:parallax06/utils/type_game.dart';
 
@@ -42,6 +44,7 @@ class MyGame extends FlameGame
     add(CandyBackground());
     _playerComponent = PlayerComponent();
     add(_playerComponent);
+    add(HudComponent());
 
     // add(ParticleSystemComponent(particle: paintParticle())
     //   ..position = Vector2(500, 500));
@@ -51,7 +54,7 @@ class MyGame extends FlameGame
     overlays.remove('Statistics');
     overlays.add('Statistics');
 
-    checkEndGame();
+    //checkEndGame();
   }
 
   checkEndGame() {
@@ -192,6 +195,11 @@ void main() {
       },
       'GameOver': (context, MyGame game) {
         return GameOverOverlay(
+          game: game,
+        );
+      },
+      'LevelSelection': (context, MyGame game) {
+        return LevelSelectionOverlay(
           game: game,
         );
       }
