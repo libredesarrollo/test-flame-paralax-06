@@ -75,6 +75,18 @@ class _StatisticsOverlayState extends State<StatisticsOverlay> {
                   size: 40,
                 ),
               ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget.game.overlays.add("TypeGameOverlay");
+                  });
+                },
+                child: const Icon(
+                  Icons.gamepad,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
             ],
           ),
           Row(

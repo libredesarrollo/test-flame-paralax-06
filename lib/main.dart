@@ -15,6 +15,7 @@ import 'package:parallax06/components/food.dart' as food;
 import 'package:parallax06/overlay/game_over_overlay.dart';
 import 'package:parallax06/overlay/level_selection_overlay.dart';
 import 'package:parallax06/overlay/statistics_overlay.dart';
+import 'package:parallax06/overlay/type_game_overlay.dart';
 import 'package:parallax06/utils/type_game.dart';
 
 class SineCurve extends Curve {
@@ -200,6 +201,11 @@ void main() {
       },
       'LevelSelection': (context, MyGame game) {
         return LevelSelectionOverlay(
+          game: game,
+        );
+      },
+      'TypeGameOverlay': (context, MyGame game) {
+        return TypeGameOverlay(
           game: game,
         );
       }
