@@ -96,6 +96,7 @@ class _TypeGameOverlayState extends State<TypeGameOverlay> {
       child: GestureDetector(
         onTap: () {
           // widget.game.reset(currentLevel: level);
+          widget.game.reset(typeGame: TypeGame.values[index]);
           widget.game.overlays.remove("TypeGameOverlay");
         },
         child: Text(

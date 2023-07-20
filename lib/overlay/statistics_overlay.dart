@@ -15,6 +15,7 @@ class _StatisticsOverlayState extends State<StatisticsOverlay> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
@@ -130,9 +131,15 @@ class _StatisticsOverlayState extends State<StatisticsOverlay> {
                     fontSize: 15,
                     color: Colors.blueGrey,
                     shadows: [Shadow(color: Colors.black, blurRadius: 5.0)]),
-              )
+              ),
             ],
           ),
+          const Expanded(
+              child: SizedBox(
+            height: 50,
+          )),
+          Text(widget.game.typeGame.toString()),
+          Text("Level: ${widget.game.currentLevel}")
         ],
       ),
     );

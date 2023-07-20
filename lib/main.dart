@@ -33,8 +33,8 @@ class MyGame extends FlameGame
   int points = 0;
   int eatenCandy = 0;
   int lostCandy = 0;
-  int _currentLevel = 1;
-  TypeGame _typeGame = TypeGame.byPoints;
+  int currentLevel = 1;
+  TypeGame typeGame = TypeGame.byPoints;
 
   late PlayerComponent _playerComponent;
 
@@ -60,7 +60,7 @@ class MyGame extends FlameGame
 
   checkEndGame() {
     switch (oneLost(
-        food.getCurrentLevel(level: _currentLevel), eatenCandy, lostCandy)) {
+        food.getCurrentLevel(level: currentLevel), eatenCandy, lostCandy)) {
       case StateGame.lose:
         print("losing");
         overlays.add('GameOver');
@@ -132,14 +132,14 @@ class MyGame extends FlameGame
   }
 
   addSpriteFoodToWindow(double dt) {
-    if (foodIndex < food.getCurrentLevel(level: _currentLevel).length) {
+    if (foodIndex < food.getCurrentLevel(level: currentLevel).length) {
       if (foodTimer >
           food
-              .getCurrentLevel(level: _currentLevel)[foodIndex]
+              .getCurrentLevel(level: currentLevel)[foodIndex]
               .timeToOtherFood) {
         add(FoodComponent(
             foodPreSprite:
-                food.getCurrentLevel(level: _currentLevel)[foodIndex]));
+                food.getCurrentLevel(level: currentLevel)[foodIndex]));
         foodTimer = 0.0;
         foodIndex++;
       }
@@ -176,8 +176,8 @@ class MyGame extends FlameGame
     eatenCandy = 0;
     lostCandy = 0;
 
-    _currentLevel = currentLevel;
-    _typeGame = typeGame;
+    this.currentLevel = currentLevel;
+    this.typeGame = typeGame;
 
     _playerComponent.reset();
 
@@ -185,6 +185,8 @@ class MyGame extends FlameGame
     overlays.remove('Statistics');
     overlays.add('Statistics');
   }
+
+  getMetadataTypeGame() {}
 }
 
 void main() {
