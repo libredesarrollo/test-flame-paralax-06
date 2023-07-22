@@ -12,7 +12,7 @@ StateGame oneLost(List<FoodPreSprite> levelN, int eatenFood, int lostFood) {
   return StateGame.running;
 }
 
-oneLostMetadata() {
+String oneLostMetadata() {
   return "";
 }
 
@@ -28,8 +28,8 @@ StateGame byPoints(
   return StateGame.running;
 }
 
-byPointsMetadata(int currentLevel) {
-  return levelsMinPoints[currentLevel];
+String byPointsMetadata(int currentLevel) {
+  return levelsMinPoints[currentLevel].toString();
 }
 
 // tipo de dulces que puede consumir
@@ -44,8 +44,8 @@ StateGame onlyTypeFood(
   return StateGame.running; // end game
 }
 
-onlyTypeFoodMetadata(int currentLevel) {
-  return levelsOnlyTypeFood[currentLevel];
+String onlyTypeFoodMetadata(int currentLevel) {
+  return levelsOnlyTypeFood[currentLevel].toString();
 }
 
 // tipo de dulces que no puede consumir
@@ -59,6 +59,6 @@ StateGame notEatenThisFood(
   return StateGame.running;
 }
 
-notEatenThisFoodMetadata(int currentLevel) {
-  return levelsNotEatenThisFood[currentLevel];
+String notEatenThisFoodMetadata(int currentLevel) {
+  return levelsNotEatenThisFood[currentLevel].toString();
 }

@@ -138,7 +138,7 @@ class _StatisticsOverlayState extends State<StatisticsOverlay> {
               child: SizedBox(
             height: 50,
           )),
-          Text(widget.game.typeGame.toString()),
+          Text(widget.game.typeGameDetail()),
           Text("Level: ${widget.game.currentLevel}")
         ],
       ),

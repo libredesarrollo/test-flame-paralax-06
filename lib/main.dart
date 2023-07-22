@@ -51,6 +51,26 @@ class MyGame extends FlameGame
     //   ..position = Vector2(500, 500));
   }
 
+  String typeGameDetail() {
+    String meta = "";
+    switch (typeGame) {
+      case TypeGame.oneLost:
+        meta = oneLostMetadata();
+        break;
+      case TypeGame.byPoints:
+        meta = byPointsMetadata(currentLevel);
+        break;
+      case TypeGame.notEatenThisFood:
+        meta = notEatenThisFoodMetadata(currentLevel);
+        break;
+      case TypeGame.onlyTypeFood:
+        meta = onlyTypeFoodMetadata(currentLevel);
+        break;
+    }
+
+    return "$typeGame $meta";
+  }
+
   refreshOverlayStatistics() {
     overlays.remove('Statistics');
     overlays.add('Statistics');
