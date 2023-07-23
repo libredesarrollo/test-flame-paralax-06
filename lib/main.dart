@@ -79,8 +79,27 @@ class MyGame extends FlameGame
   }
 
   checkEndGame() {
-    switch (oneLost(
-        food.getCurrentLevel(level: currentLevel), eatenCandy, lostCandy)) {
+    StateGame _stateGame = StateGame.running;
+    // switch (typeGame) {
+    //   case TypeGame.oneLost:
+    //     oneLost(
+    //         food.getCurrentLevel(level: currentLevel), eatenCandy, lostCandy);
+    //     break;
+    //   case TypeGame.byPoints:
+    //     byPoints(food.getCurrentLevel(level: currentLevel), points, eatenCandy,
+    //         lostCandy, 1);
+    //     break;
+    //   case TypeGame.notEatenThisFood:
+    //     notEatenThisFood(food.getCurrentLevel(level: currentLevel), foodIndex,
+    //         1, eatenCandy, lostCandy, isEaten);
+    //     break;
+    //   case TypeGame.onlyTypeFood:
+    //     onlyTypeFood(food.getCurrentLevel(level: currentLevel), foodIndex, 1,
+    //         eatenCandy, lostCandy, isEaten);
+    //     break;
+    // }
+
+    switch (_stateGame) {
       case StateGame.lose:
         print("losing");
         overlays.add('GameOver');
