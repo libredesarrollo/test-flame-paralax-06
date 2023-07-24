@@ -18,6 +18,7 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
   double changeAnimationTimer = 0;
   double timeToChangeAnimation = 0;
   bool chewing = false;
+  final double maxVelocity = 10;
 
   PlayerComponent() : super() {
     _init();
@@ -137,6 +138,7 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
     }
 
     movePlayer(dt);
+    movePlayerJoystick(dt);
   }
 
   @override
@@ -176,6 +178,12 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
       // break;
       case MovementType.idle:
         break;
+    }
+  }
+
+  void movePlayerJoystick(double delta) {
+    if (gameRef.hudComponent.joystick.direction != JoystickDirection.idle) {
+      position.add(gameRef.hudComponent.joystick.delta * maxVelocity * delta);
     }
   }
 }

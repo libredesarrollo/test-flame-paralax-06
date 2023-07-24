@@ -37,6 +37,7 @@ class MyGame extends FlameGame
   TypeGame typeGame = TypeGame.byPoints;
 
   late PlayerComponent _playerComponent;
+  late HudComponent hudComponent;
 
   @override
   void onLoad() async {
@@ -45,7 +46,8 @@ class MyGame extends FlameGame
     add(CandyBackground());
     _playerComponent = PlayerComponent();
     add(_playerComponent);
-    add(HudComponent());
+    hudComponent = HudComponent();
+    add(hudComponent);
 
     // add(ParticleSystemComponent(particle: paintParticle())
     //   ..position = Vector2(500, 500));
