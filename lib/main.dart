@@ -105,12 +105,14 @@ class MyGame extends FlameGame
       case StateGame.lose:
         print("losing");
         overlays.add('GameOver');
+        reset(typeGame: typeGame);
         paused = true;
         break;
       case StateGame.win:
         print("win");
         overlays.add('GameOver');
-        paused = true;
+        reset(currentLevel: currentLevel + 1, typeGame: typeGame);
+        // paused = true;
         break;
       default:
         break;
