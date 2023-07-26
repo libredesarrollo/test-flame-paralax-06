@@ -69,6 +69,10 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
     add(body);
     add(mouth);
 
+    game.hudComponent.rotateButton.onPressed = () {
+      _rotate();
+    };
+
     return super.onLoad();
   }
 
@@ -96,31 +100,33 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
 
     if (keysPressed.contains(LogicalKeyboardKey.keyR)) {
       //**** R
-
-      switch (rotateType) {
-        case SideType.right:
-          rotateType = SideType.down;
-          break;
-        case SideType.down:
-          rotateType = SideType.left;
-          break;
-        case SideType.left:
-          rotateType = SideType.up;
-          break;
-        case SideType.up:
-          rotateType = SideType.right;
-          break;
-      }
-
-      angle += math.pi * 1 / 2;
-      // print(rotateType);
-      if (rotateType == SideType.left || rotateType == SideType.right) {
-        print("flipVertically");
-        flipVertically();
-      }
+      _rotate();
     }
 
     return true;
+  }
+
+  void _rotate() {
+    switch (rotateType) {
+      case SideType.right:
+        rotateType = SideType.down;
+        break;
+      case SideType.down:
+        rotateType = SideType.left;
+        break;
+      case SideType.left:
+        rotateType = SideType.up;
+        break;
+      case SideType.up:
+        rotateType = SideType.right;
+        break;
+    }
+
+    angle += math.pi * 1 / 2;
+    // print(rotateType);
+    if (rotateType == SideType.left || rotateType == SideType.right) {
+      flipVertically();
+    }
   }
 
   @override

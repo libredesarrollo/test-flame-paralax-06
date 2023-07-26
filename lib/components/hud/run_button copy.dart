@@ -35,13 +35,11 @@ class RunButton extends HudButtonComponent {
   void onTapUp(TapUpEvent event) {
     super.onTapUp(event);
     buttonPressed = false;
-    // return false;
   }
 
   @override
   void onTapCancel(TapCancelEvent event) {
     super.onTapCancel(event);
     buttonPressed = false;
-    // return true;
   }
 }
