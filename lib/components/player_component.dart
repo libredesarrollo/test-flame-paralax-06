@@ -28,7 +28,7 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
     debugMode = true;
     position = Vector2(spriteSheetWidth, spriteSheetHeight);
     size = Vector2(spriteSheetWidth, spriteSheetHeight);
-    scale = Vector2.all(.5);
+    // scale = Vector2.all(.5);
   }
 
   reset() {
@@ -190,7 +190,6 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
 
   void movePlayerJoystick(double delta) {
     if (gameRef.hudComponent.joystick.direction != JoystickDirection.idle) {
-      print(gameRef.hudComponent.joystick.delta);
       position.add(gameRef.hudComponent.joystick.delta * maxVelocity * delta);
     }
   }
