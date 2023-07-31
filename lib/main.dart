@@ -17,6 +17,7 @@ import 'package:parallax06/overlay/level_selection_overlay.dart';
 import 'package:parallax06/overlay/statistics_overlay.dart';
 import 'package:parallax06/overlay/type_game_overlay.dart';
 import 'package:parallax06/utils/type_game.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SineCurve extends Curve {
   @override
@@ -48,6 +49,11 @@ class MyGame extends FlameGame
     add(_playerComponent);
     hudComponent = HudComponent();
     add(hudComponent);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    currentLevel = prefs.getInt('currentLevel') ?? 1;
+    typeGame = TypeGame.values[prefs.getInt('typeGame') ?? 1];
 
     // add(ParticleSystemComponent(particle: paintParticle())
     //   ..position = Vector2(500, 500));
@@ -210,7 +216,7 @@ class MyGame extends FlameGame
   void reset(
       {bool dead = false,
       int currentLevel = 1,
-      TypeGame typeGame = TypeGame.byPoints}) {
+      TypeGame typeGame = TypeGame.byPoints}) async {
     paused = false;
     foodTimer = 0.0;
     foodIndex = 0;
@@ -221,6 +227,11 @@ class MyGame extends FlameGame
 
     this.currentLevel = currentLevel;
     this.typeGame = typeGame;
+
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setInt('currentLevel', currentLevel);
+    prefs.setInt('typeGame', typeGame.index);
 
     _playerComponent.reset();
 
