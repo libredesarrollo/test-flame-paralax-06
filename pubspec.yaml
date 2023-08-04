@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flame:
   shared_preferences:
+  flame_audio:
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,8 @@ flutter:
     - assets/images/shark.png
     - assets/images/candies.png
     - assets/images/candy.png
+    - assets/audio/chewing.wav
+    - assets/audio/eating.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

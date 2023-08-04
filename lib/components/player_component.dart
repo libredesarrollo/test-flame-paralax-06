@@ -14,9 +14,14 @@ import 'package:parallax06/components/character.dart';
 import 'package:parallax06/main.dart';
 import 'package:parallax06/utils/helper.dart';
 
+import 'package:flame_audio/flame_audio.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 class PlayerComponent extends Character with HasGameRef<MyGame> {
   double changeAnimationTimer = 0;
   double timeToChangeAnimation = 0;
+  late AudioPlayer audioPlayerChewing;
+
   bool chewing = false;
   final double maxVelocity = 10;
 
@@ -28,6 +33,11 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
     debugMode = true;
     position = Vector2(spriteSheetWidth, spriteSheetHeight);
     size = Vector2(spriteSheetWidth, spriteSheetHeight);
+
+    FlameAudio.loop('chewing.wav', volume: 0).then((audioPlayer) {
+      audioPlayerChewing = audioPlayer;
+    });
+
     // scale = Vector2.all(.5);
   }
 
@@ -141,6 +151,7 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
         changeAnimationTimer = 0;
         chewing = false;
         animation = idleAnimation;
+        audioPlayerChewing.setVolume(0);
       }
     }
 
@@ -164,6 +175,8 @@ class PlayerComponent extends Character with HasGameRef<MyGame> {
       game.refreshOverlayStatistics();
 
       other.removeFromParent();
+      FlameAudio.play('eating.mp3');
+      audioPlayerChewing.setVolume(1);
     }
     super.onCollisionStart(intersectionPoints, other);
   }
